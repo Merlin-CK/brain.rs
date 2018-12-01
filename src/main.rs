@@ -1,6 +1,5 @@
-use std::fs::File;
 use std::env::args;
-use std::io::*;
+use std::io::{Result, Error, ErrorKind};
 
 mod interpreter;
 
@@ -17,10 +16,7 @@ fn read_file() -> Result<String> {
         .nth(1)
         .ok_or(Error::new(ErrorKind::Other, "No file specified"))?;
     
-    let mut file = File::open(filename)?;
+    let content = std::fs::read_to_string(filename)?;
 
-    let mut program = String::new();
-    file.read_to_string(&mut program)?;
-    
-    Ok(program)
+    Ok(content)
 }
