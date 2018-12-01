@@ -1,16 +1,22 @@
 use std::io::{stdout, stdin, Write, Read};
 
 
+/// Reads a single byte from stdin.
+/// 
+/// # Panics
+/// Panics if the byte could not be read.
 pub fn read_byte() -> u8 {
-    let mut buffer = [0u8];
-
     stdin()
-        .read(&mut buffer)
-        .expect("Can't read from stdin");
-
-    buffer[0]
+        .bytes()
+        .next()
+        .expect("Stdin reached end of file")
+        .expect("Can't read byte from stdin")
 }
 
+/// Writes a single byte to stdout and flushes the output stream.
+/// 
+/// # Panics
+/// Panics if writing a byte to stdout or flushing the stream failed.
 pub fn write_byte(b: u8) {
     let buffer = [b];
     
