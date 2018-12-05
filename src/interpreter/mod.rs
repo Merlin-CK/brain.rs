@@ -22,17 +22,14 @@ struct Interpreter {
 
 impl Interpreter {
     fn new(program: &str) -> Interpreter {
-        let mut interp_mem = Vec::with_capacity(100);
-        interp_mem.push(0);
-        
         Interpreter {
             code: program
                 .bytes()
                 .filter(|x| INSTRUCTIONS.contains(&x))
                 .collect(),
             
-            memory: interp_mem,
-            loops: Vec::new(),
+            memory: vec![0; 200],
+            loops: Vec::with_capacity(20),
             pc: 0,
             ptr: 0
         }
