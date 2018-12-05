@@ -1,8 +1,12 @@
 mod ioutil;
 
+const INSTRUCTIONS: [u8; 8] = [
+    b'+', b'-', b'>', b'<', b'[', b']', b'.', b',', 
+];
+
 
 pub fn run(program: &str) {
-    let mut interp = Interpreter::new(program);
+    let mut interp = Interpreter::new(&program);
     interp.run();
 }
 
@@ -20,9 +24,13 @@ impl Interpreter {
     fn new(program: &str) -> Interpreter {
         let mut interp_mem = Vec::with_capacity(100);
         interp_mem.push(0);
-
+        
         Interpreter {
-            code: program.bytes().collect(),
+            code: program
+                .bytes()
+                .filter(|x| INSTRUCTIONS.contains(&x))
+                .collect(),
+            
             memory: interp_mem,
             loops: Vec::new(),
             pc: 0,
