@@ -1,0 +1,6 @@
+[package]
+name = "brainrs"
+version = "0.1.0"
+authors = ["Merlin-CK <merlinkannengiesser@gmail.com>"]
+
+[dependencies]
